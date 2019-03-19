@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+from matplotlib import animation
 
 PLOT_ROWS = 10
 PLOT_COLUMNS = 2
@@ -13,7 +14,7 @@ class ImageProcess():
 
 
     def load(self, img):
-        h, w, c = img.shape
+        h, w, _ = img.shape
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         return gray, h, w
     
@@ -74,3 +75,16 @@ for i in range(10):
     plt.pause(0.05)
 
 plt.show()
+
+
+
+import tkinter as tk
+from PIL.ImageTk import PhotoImage
+window = tk.Tk()
+img = cv2.imread("frame_000.tiff")
+height, width, no_channels = img.shape
+canvas = tk.Canvas(window, width = width, height = height)
+canvas.pack()
+photo = PhotoImage(image = PIL.Image.fromarray(img))
+canvas.create_image(0, 0, image=photo, anchor=tk.NW)
+window.mainloop()
